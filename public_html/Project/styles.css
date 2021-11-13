@@ -11,15 +11,15 @@
 }
 
 .alert-info {
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(129, 0, 250);
 }
-nav li{display: inline; background-color: rgb(255, 255, 255);}
+nav li{display: inline; background-color: rgb(255, 136, 0);}
 nav li a{color: rgb(0, 0, 0)}
 /*
 input{border-radius: 50%;}
 */
 body{
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(21, 147, 219, 0.589);
     color: rgb(0, 0, 0);
 
 }
