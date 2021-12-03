@@ -22,7 +22,7 @@ if(isset($_POST["save"])){
     ]);
 
     if($r){
-        flash("Created successfully with id: " . $dv->lastInsertId());
+        flash("Created successfully with id: " . $db->lastInsertId());
     }
     else{
         $e = $stmt->$errorInfo();
@@ -40,7 +40,14 @@ if(isset($_POST["save"])){
         </div>
         <div class="mb-3">
             <label class="form-label" for="account_type">Account Type</label>
-            <input class="form-control" />
+            <select class="form-control" id="account_type" name="account_type">
+                <option value="checking">Checking</option>
+                <option value="savings">Savings</option>
+            </select>
         </div>
     </form>
 </div>
+
+<?php
+require_once(__DIR__ . "/../../partials/footer.php");
+?>
