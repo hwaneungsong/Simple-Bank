@@ -39,6 +39,11 @@ require_once(__DIR__ . "/../lib/functions.php");
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <?php if (is_logged_in()) : ?>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('profile.php'); ?>">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo get_url('create_accounts.php'); ?>">Create Account</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">My Accounts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Deposit</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Withdraw</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Transfer</a></li> 
                 <?php endif; ?>
                 <?php if (!is_logged_in()) : ?>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('login.php'); ?>">Login</a></li>
