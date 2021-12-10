@@ -182,6 +182,60 @@
   <table><tr><td>Milestone 2</td></tr><tr><td><table><tr><td>F1 - User will be able to deposit/withdraw from their account(s)</td></tr><tr><td>Links:</td></tr><tr><td>PRs:</td></tr><tr><td><table><tr><td>F1 - <tr><td>Status: incomplete</td></tr><tr><td><img width="100%" src=""><p></td></tr></td></tr></table></td></tr></td></tr></table>
 - Milestone 3
 - Milestone 4
+  - [ ] \(mm/dd/yyyy of completion) User can set their profile to be public or private (will need another column in Users table)
+    -  List of Evidence of Feature Completion
+      - Status: Pending (Completed, Partially working, Incomplete, Pending)
+      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
+      - Pull Requests
+        - PR link #1 (repeat as necessary)
+      - Screenshots
+        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
+          - Screenshot #1 description explaining what you're trying to show
+  - [ ] \(mm/dd/yyyy of completion) User will be able to open a savings account
+    -  List of Evidence of Feature Completion
+      - Status: Pending (Completed, Partially working, Incomplete, Pending)
+      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
+      - Pull Requests
+        - PR link #1 (repeat as necessary)
+      - Screenshots
+        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
+          - Screenshot #1 description explaining what you're trying to show
+  - [ ] \(mm/dd/yyyy of completion) User will be able to take out a loan
+    -  List of Evidence of Feature Completion
+      - Status: Pending (Completed, Partially working, Incomplete, Pending)
+      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
+      - Pull Requests
+        - PR link #1 (repeat as necessary)
+      - Screenshots
+        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
+          - Screenshot #1 description explaining what you're trying to show
+  - [ ] \(mm/dd/yyyy of completion) Listing accounts and/or viewing Account Details should show any applicable APY or “-” if none is set for the particular account (may alternatively just hide the display for these types)
+    -  List of Evidence of Feature Completion
+      - Status: Pending (Completed, Partially working, Incomplete, Pending)
+      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
+      - Pull Requests
+        - PR link #1 (repeat as necessary)
+      - Screenshots
+        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
+          - Screenshot #1 description explaining what you're trying to show
+  - [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+    -  List of Evidence of Feature Completion
+      - Status: Pending (Completed, Partially working, Incomplete, Pending)
+      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
+      - Pull Requests
+        - PR link #1 (repeat as necessary)
+      - Screenshots
+        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
+          - Screenshot #1 description explaining what you're trying to show
+  - [ ] \(mm/dd/yyyy of completion) Admin role (leave this section for last)
+    -  List of Evidence of Feature Completion
+      - Status: Pending (Completed, Partially working, Incomplete, Pending)
+      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
+      - Pull Requests
+        - PR link #1 (repeat as necessary)
+      - Screenshots
+        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
+          - Screenshot #1 description explaining what you're trying to show
 ### Intructions
 #### Don't delete this
 1. Pick one project type
