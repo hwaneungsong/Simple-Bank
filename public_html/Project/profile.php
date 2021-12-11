@@ -7,6 +7,7 @@ if (isset($_POST["save"])) {
     $email = se($_POST, "email", null, false);
     $username = se($_POST, "username", null, false);
     $hasError = false;
+    $isValid = true;
     //sanitize
     $email = sanitize_email($email);
     //validate
@@ -29,7 +30,7 @@ if (isset($_POST["save"])) {
         }
     }
     //select fresh data from table
-    $stmt = $db->prepare("SELECT id, email, IFNULL(username, email) as `username` from Users where id = :id LIMIT 1");
+    $stmt = $db->prepare("SELECT id, email, firstName, lastName, `username` from Users where id = :id LIMIT 1");
     try {
         $stmt->execute([":id" => get_user_id()]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -37,6 +38,8 @@ if (isset($_POST["save"])) {
             //$_SESSION["user"] = $user;
             $_SESSION["user"]["email"] = $user["email"];
             $_SESSION["user"]["username"] = $user["username"];
+            $_SESSION["user"]["firstName"] = $user["firstName"];
+            $_SESSION["user"]["lastName"] = $user["lastName"];
         } else {
             flash("User doesn't exist", "danger");
         }
@@ -78,12 +81,28 @@ if (isset($_POST["save"])) {
             flash("New passwords don't match", "warning");
         }
     }
+    
+    //First and Last Name
+    $first = se($_POST, "firstName", null, false);
+    $last = se($_POST, "lastName", null, false);
+
+    if(!$hasError) {
+        $stmt = $db->prepare("UPDATE Users set email = :email, username= :username, firstName= :firstName, lastName=:lastName where id=:id");
+        $r = $stmt->execute([":email" => $email, ":username" => $username, ":firstName" => $first, ":lastName" => $last, ":id" => get_user_id()]);
+        if($r){
+            flash("Updated profile");
+        } else {
+            flash("Error updating profile");
+        }
+    }
 }
 ?>
 
 <?php
 $email = get_user_email();
 $username = get_username();
+$first = get_first();
+$last = get_last();
 ?>
 <div class="conatiner-fluid">
     <h1>Profile</h1> 
@@ -95,6 +114,14 @@ $username = get_username();
         <div class="mb-3">
             <label for="username">Username</label>
             <input type="text" name="username" id="username" value="<?php se($username); ?>" />
+        </div>
+        <div class="mb-3">
+            <label for="firstName">First Name</label>
+            <input type="text" name="firstName" id="firstName" value="<?php se($first); ?>" />
+        </div>
+        <div class="mb-3">
+            <label for="lastName">Last Name</label>
+            <input type="text" name="lastName" id="lastName" value="<?php se($last); ?>" /> 
         </div>
         <!-- DO NOT PRELOAD PASSWORD -->
         <div>Password Reset</div>

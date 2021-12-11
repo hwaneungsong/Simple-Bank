@@ -43,7 +43,8 @@ require_once(__DIR__ . "/../lib/functions.php");
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('accounts.php'); ?>">My Accounts</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('deposit.php'); ?>">Deposit</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Withdraw</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Transfer</a></li> 
+                    <li class="nav-item"><a class="nav-link" href="<?php echo get_url('transfer.php'); ?>">Transfer</a></li> 
+                    <li class="nav-item"><a class="nav-link" href="<?php echo get_url('createExternalTransfer.php'); ?>">External Transfer</a></li>
                 <?php endif; ?>
                 <?php if (!is_logged_in()) : ?>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('login.php'); ?>">Login</a></li>
@@ -51,15 +52,15 @@ require_once(__DIR__ . "/../lib/functions.php");
                 <?php endif; ?>
                 <?php if (has_role("Admin")) : ?>
                     <li class="nav-item dropdown">
-                        <a class="nav-item dropdown-toggle" href="#" id="rolesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="rolesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Admin Roles
                         </a>
-                        <ul class="dropdown-menu bg-warning" aria-labelledby="rolesDropdown">
+                        <ul class="dropdown-menu bg-warning" aria-labelledby="rolesDropdown">     
                             <li><a class="dropdown-item" href="<?php echo get_url('admin/create_role.php'); ?>">Create Role</a></li>
                             <li><a class="dropdown-item" href="<?php echo get_url('admin/list_roles.php'); ?>">List Roles</a></li>
-                            <li><a class="dropdown-item"href="<?php echo get_url('admin/assign_roles.php'); ?>">Assign Roles</a></li>
+                            <li><a class="dropdown-item" href="<?php echo get_url('admin/assign_roles.php'); ?>">Assign Roles</a></li>
                         </ul>
-                    </li>
+                    </li>        
                 <?php endif; ?>
                 <?php if (is_logged_in()) : ?>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('logout.php'); ?>">Logout</a></li>
@@ -71,5 +72,4 @@ require_once(__DIR__ . "/../lib/functions.php");
         </div>
     </div>
 </nav>
-
 
