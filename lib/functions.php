@@ -63,6 +63,16 @@ function get_username()
     }
     return "";
 }
+function get_first(){
+    if(is_logged_in()){
+        return se($_SESSION["user"], "firstName", "", false);
+    }
+}
+function get_last(){
+    if(is_logged_in()){
+        return se($_SESSION["user"], "lastName", "", false);
+    }
+}
 function get_user_email()
 {
     if (is_logged_in()) { //we need to check for login first because "user" key may not exist
@@ -225,3 +235,31 @@ function get_user_account_id()
     }
     return 0;
 }
+function doBankaction($account1, $account2, $amountChange, $type){
+    $db = getDB();
+    $user = get_user_id();
+
+    $a1total = 0;
+	$a2total = 0;
+	$query = "INSERT INTO `Transactions` (`AccountSource`, `AccountDest`, `Amount`, `Type`, `Total`) 
+	VALUES(:p1a1, :p1a2, :p1change, :type, :a1total), 
+			(:p2a1, :p2a2, :p2change, :type, :a2total)";
+	
+	$stmt = $db->prepare($query);
+	$stmt->bindValue(":p1a1", $account1);
+	$stmt->bindValue(":p1a2", $account2);
+	$stmt->bindValue(":p1change", $amountChange);
+	$stmt->bindValue(":type", $type);
+	$stmt->bindValue(":a1total", $a1total);
+	
+	$stmt->bindValue(":p2a1", $account2);
+	$stmt->bindValue(":p2a2", $account1);
+	$stmt->bindValue(":p2change", ($amountChange*-1));
+	$stmt->bindValue(":type", $type);
+	$stmt->bindValue(":a2total", $a2total);
+	$result = $stmt->execute();
+	echo var_export($result, true);
+	echo var_export($stmt->errorInfo(), true);
+	return $result;
+}
+

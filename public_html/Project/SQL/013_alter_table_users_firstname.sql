@@ -1,0 +1,1 @@
+ALTER TABLE Users ADD COLUMN firstName VARCHAR(60) default '';
