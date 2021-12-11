@@ -43,7 +43,8 @@ require_once(__DIR__ . "/../lib/functions.php");
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('accounts.php'); ?>">My Accounts</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('deposit.php'); ?>">Deposit</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Withdraw</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Transfer</a></li> 
+                    <li class="nav-item"><a class="nav-link" href="<?php echo get_url('transfer.php'); ?>">Transfer</a></li> 
+                    <li class="nav-item"><a class="nav-link" href="<?php echo get_url('createExternalTransfer.php'); ?>">External Transfer</a></li>
                 <?php endif; ?>
                 <?php if (!is_logged_in()) : ?>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('login.php'); ?>">Login</a></li>
