@@ -1,6 +1,12 @@
 <?php
 require_once(__DIR__ . "/../../partials/nav.php");
 
+$db = getDB();
+$user = get_user_id();
+$stmt = $db->prepare("SELECT account, account_type from Accounts WHERE Accounts.user_id=:q");
+$r = $stmt->execute([":q" => $user]);
+$accs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 if(isset($_GET["id"])){
     $id = $_GET["id"];
     echo var_export("This is the get id + " .$id, true);
@@ -32,15 +38,21 @@ if(isset($_POST["save"])){
 ?>
 
 <div class="container-fluid">
+<h1> Deposit </h1>
 <form method="POST">
   <label> Account Number </label>
-  <input type="number" name="account" value="<?php echo $result["account"];?>" />
+  <select name="account" placeholder="Account">
+      <?php foreach ($accs as $acc): ?>
+          <option value="<?php echo($acc["account"]); ?>"
+          ><?php echo($acc["account"]); ?></option>
+      <?php endforeach; ?>
+  </select>
   <label>Account Type</label>
   <select name="account_type">
     <option value = "checking">checking</option>
     <option value =  "saving">saving</option>
   </select>
-  <label>Balance</label>
+  <label>Amount</label>
   <input type="number" min="5.00" name="balance" value="<?php echo $result["balance"];?>" />
-	<input type="submit" name="save" value="Create"/>
+	<input type="submit" name="save" value="Deposit"/>
 </form>

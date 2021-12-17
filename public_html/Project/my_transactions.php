@@ -97,11 +97,11 @@ if(isset($transId) && isset($_POST["save"])) {
     $db = getDB();
 
     $type = $_POST["reason"];
-    $_SESSION["type"] = $type;
+    $_SESSION["reason"] = $type;
     $resultPage = [];
 
     $stmt = $db->prepare("SELECT COUNT(*) AS total FROM Transactions WHERE reason=:type AND src=:id");
-    $r = $stmt->execute([":id" => $transId, ":type" => $type]);
+    $r = $stmt->execute([":id" => $transId, ":reason" => $type]);
     $resultPage = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($resultPage) {
         $numRecords = (int)$resultPage["total"];
@@ -119,7 +119,7 @@ if(isset($_POST["save"])) {
 
     $startDate = $_POST["dateStart"];
     $endDate = $_POST["dateTo"];
-    $type = $_POST["action_type"];
+    $type = $_POST["reason"];
     $save = $_POST["save"];
 
     $startDate = (string)$startDate . ' 00:00:00';
@@ -127,13 +127,13 @@ if(isset($_POST["save"])) {
 
     $_SESSION["dateStart"] = $startDate;
     $_SESSION["dateTo"] = $endDate;
-    $_SESSION["type"] = $type;
+    $_SESSION["reason"] = $type;
     $_SESSION["save"] = $save;
 
     $stmt = $db->prepare("SELECT src, Accounts.id, Accounts.account, diff, reason, memo FROM Transactions JOIN Accounts on Accounts.id = Transactions.src WHERE src =:id AND reason=:reason AND created BETWEEN :startDate AND :endDate LIMIT :offset, :count");
     $stmt->bindValue(":startDate", $startDate, PDO::PARAM_STR);
     $stmt->bindValue(":endDate", $endDate, PDO::PARAM_STR);
-    $stmt->bindValue(":action_type", $type, PDO::PARAM_STR);
+    $stmt->bindValue(":reason", $type, PDO::PARAM_STR);
     $stmt->bindValue(":id", $transId, PDO::PARAM_INT);
     $stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
     $stmt->bindValue(":count", $numPerPage, PDO::PARAM_INT);
@@ -169,7 +169,7 @@ else if(!isset($_POST["save"]) && isset($_GET["page"])){
         $stmt = $db->prepare("SELECT src, Accounts.id, Accounts.account, diff, reason, memo FROM Transactions JOIN Accounts on Accounts.id = Transactions.src WHERE src =:id AND reason=:reason AND created BETWEEN :startDate AND :endDate LIMIT :offset, :count");
         $stmt->bindValue(":startDate", $startDate, PDO::PARAM_STR);
         $stmt->bindValue(":endDate", $endDate, PDO::PARAM_STR);
-        $stmt->bindValue(":action_type", $type, PDO::PARAM_STR);
+        $stmt->bindValue(":reason", $type, PDO::PARAM_STR);
         $stmt->bindValue(":id", $transId, PDO::PARAM_INT);
         $stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
         $stmt->bindValue(":count", $numPerPage, PDO::PARAM_INT);
