@@ -85,10 +85,11 @@ if (isset($_POST["save"])) {
     //First and Last Name
     $first = se($_POST, "firstName", null, false);
     $last = se($_POST, "lastName", null, false);
-
+    //Privacy
+    $private = se($_POST, "privacy", null, false);
     if(!$hasError) {
-        $stmt = $db->prepare("UPDATE Users set email = :email, username= :username, firstName= :firstName, lastName=:lastName where id=:id");
-        $r = $stmt->execute([":email" => $email, ":username" => $username, ":firstName" => $first, ":lastName" => $last, ":id" => get_user_id()]);
+        $stmt = $db->prepare("UPDATE Users set email = :email, username= :username, firstName= :firstName, lastName=:lastName, privacy=:privacy where id=:id");
+        $r = $stmt->execute([":email" => $email, ":username" => $username, ":firstName" => $first, ":lastName" => $last, ":privacy" => $private, ":id" => get_user_id()]);
         if($r){
             flash("Updated profile");
         } else {
@@ -112,6 +113,13 @@ $last = get_last();
             <input type="email" name="email" id="email" value="<?php se($email); ?>" />
         </div>
         <div class="mb-3">
+            <label for="privacy">Email Privacy</label>
+            <select name="private">
+                <option value="public">Public</option>
+                <option value="private">Private</option>
+            </select>
+        </div>
+        <div class="mb-3">
             <label for="username">Username</label>
             <input type="text" name="username" id="username" value="<?php se($username); ?>" />
         </div>
@@ -124,7 +132,7 @@ $last = get_last();
             <input type="text" name="lastName" id="lastName" value="<?php se($last); ?>" /> 
         </div>
         <!-- DO NOT PRELOAD PASSWORD -->
-        <div>Password Reset</div>
+        <h2>Password Reset</h2>
         <div class="mb-3">
             <label for="cp">Current Password</label>
             <input type="password" name="currentPassword" id="cp" />
