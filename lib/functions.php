@@ -263,3 +263,20 @@ function doBankaction($account1, $account2, $amountChange, $type){
 	return $result;
 }
 
+function getAccount($n){
+    switch($n){
+        case "checking":
+            echo "Checking";
+            break;
+        case "saving":
+            echo "Savings";
+            break;
+        case "loan":
+            echo "Loan";
+            break;
+        case "world":
+            echo "World";
+            break;
+    }
+}
+
