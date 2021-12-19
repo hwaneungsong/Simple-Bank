@@ -96,12 +96,12 @@ if(isset($transId)){
 if(isset($transId) && isset($_POST["save"])) {
     $db = getDB();
 
-    $type = $_POST["reason"];
+    $type = $_POST["action_type"];
     $_SESSION["reason"] = $type;
     $resultPage = [];
 
     $stmt = $db->prepare("SELECT COUNT(*) AS total FROM Transactions WHERE reason=:type AND src=:id");
-    $r = $stmt->execute([":id" => $transId, ":reason" => $type]);
+    $r = $stmt->execute([":id" => $transId, ":type" => $type]);
     $resultPage = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($resultPage) {
         $numRecords = (int)$resultPage["total"];
@@ -119,7 +119,7 @@ if(isset($_POST["save"])) {
 
     $startDate = $_POST["dateStart"];
     $endDate = $_POST["dateTo"];
-    $type = $_POST["reason"];
+    $type = $_POST["action_type"];
     $save = $_POST["save"];
 
     $startDate = (string)$startDate . ' 00:00:00';
@@ -127,10 +127,11 @@ if(isset($_POST["save"])) {
 
     $_SESSION["dateStart"] = $startDate;
     $_SESSION["dateTo"] = $endDate;
-    $_SESSION["reason"] = $type;
+    $_SESSION["type"] = $type;
     $_SESSION["save"] = $save;
 
-    $stmt = $db->prepare("SELECT src, Accounts.id, Accounts.account, diff, reason, memo FROM Transactions JOIN Accounts on Accounts.id = Transactions.src WHERE src =:id AND reason=:reason AND created BETWEEN :startDate AND :endDate LIMIT :offset, :count");
+    $stmt = $db->prepare("SELECT src, Accounts.id, Accounts.account, diff, reason, memo FROM Transactions 
+    JOIN Accounts on Accounts.id = Transactions.src WHERE src =:id AND reason=:reason AND Transactions.created BETWEEN :startDate AND :endDate LIMIT :offset, :count");
     $stmt->bindValue(":startDate", $startDate, PDO::PARAM_STR);
     $stmt->bindValue(":endDate", $endDate, PDO::PARAM_STR);
     $stmt->bindValue(":reason", $type, PDO::PARAM_STR);
@@ -166,7 +167,8 @@ else if(!isset($_POST["save"]) && isset($_GET["page"])){
         $transId = $_SESSION["transId"];
 
 
-        $stmt = $db->prepare("SELECT src, Accounts.id, Accounts.account, diff, reason, memo FROM Transactions JOIN Accounts on Accounts.id = Transactions.src WHERE src =:id AND reason=:reason AND created BETWEEN :startDate AND :endDate LIMIT :offset, :count");
+        $stmt = $db->prepare("SELECT src, Accounts.id, Accounts.account, diff, reason, memo FROM Transactions 
+        JOIN Accounts on Accounts.id = Transactions.src WHERE src =:id AND reason=:reason AND Transactions.created BETWEEN :startDate AND :endDate LIMIT :offset, :count");
         $stmt->bindValue(":startDate", $startDate, PDO::PARAM_STR);
         $stmt->bindValue(":endDate", $endDate, PDO::PARAM_STR);
         $stmt->bindValue(":reason", $type, PDO::PARAM_STR);

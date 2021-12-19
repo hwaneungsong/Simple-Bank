@@ -7,44 +7,31 @@ if (!is_logged_in()){
     die(header("Location: " . get_url("login.php")));
 }
 
+$check = true;
+
 if(isset($_POST["save"])){
-    
-    $db = getDB();
-    $check = $db->prepare('SELECT account FROM Accounts WHERE account = :q AND active = 1');
-    do{
-        $account = get_random_str(12);
-        $check->execute([':q'=>$account]);
-    } while ($check->rowCount() > 0);
-
-    $account_type = $_POST["account_type"];
-
+    $worldBalance = 0;
     $balance = $_POST["balance"];
-    if($balance < 5){
-        flash("Minimum balance not deposited");
-        die(header("Location: create_accounts.php"));
-    }
+    $account_type = "checking";
 
-    if($account_type == "savings"){
-        $apy = $balance/10000;
-    } else {
-        $apy = 0;
-    }
-
+    $accNum = get_random_str(12);
     $user = get_user_id();
-    $stmt = $db->prepare(
-        "INSERT INTO Accounts (account, user_id, account_type, balance) VALUES (:account, :user, :account_type, :balance)"
-    );
+    $db = getDB();
+    $stmt = $db->prepare("INSERT INTO Accounts(account, account_type, balance, user_id) VALUES(:account, :account_type, :balance, :user)");
     $r = $stmt->execute([
-        ":account"=>$account,
+        ":account"=>$accNum,
         ":account_type"=>$account_type,
-        ":user"=>$user,
         ":balance"=>$balance,
+        ":user"=>$user
     ]);
+
     if($r) {
-        flash("Account created successfully with Number: " . $account);
+        flash("Account created successfully with Number: " . $accNum);
         die(header("Location: accounts.php"));
     } else {
-        flash("Error creating account!");
+        $e = $stmt->errorInfo();
+        flash("Error creating new checking account: " . var_export($e, true));
+        $check = false;
     }
     
     if($check){
@@ -79,7 +66,7 @@ if(isset($_POST["save"])){
 
 
             $stmt = $db->prepare("SELECT id from Accounts WHERE account =:accNum");
-            $r = $stmt->execute([":accNum" => $accNumFinal]);
+            $r = $stmt->execute([":accNum" => $accNum]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
             $sourceID = $result["id"];
@@ -93,7 +80,7 @@ if(isset($_POST["save"])){
                 $check = false;
             }
             if($check) {
-                $stmt = $db->prepare("INSERT INTO Transactions (src, dest, diff, amount, memo) VALUES(:src, :dest, :type, :diff, :memo)");
+                $stmt = $db->prepare("INSERT INTO Transactions (src, dest, reason, diff, memo) VALUES(:src, :dest, :type, :amount, :memo)");
                 $r = $stmt->execute([
                     ":src" => $worldID,
                     ":dest" => $sourceID,
@@ -109,7 +96,7 @@ if(isset($_POST["save"])){
             }
 
             if($check) {
-                $stmt = $db->prepare("INSERT INTO Transactions (src, dest, reason, diff, memo) VALUES(:src, :dest, :type, :diff, :memo)");
+                $stmt = $db->prepare("INSERT INTO Transactions (src, dest, reason, diff, memo) VALUES(:src, :dest, :type, :amount, :memo)");
                 $r = $stmt->execute([
                     ":src" => $sourceID,
                     ":dest" => $worldID,
@@ -147,7 +134,7 @@ if(isset($_POST["save"])){
         }
     }
 
-    header("Location: viewAccount.php");
+    header("Location: accounts.php");
 
 
 }
@@ -157,13 +144,6 @@ if(isset($_POST["save"])){
 <div class="container-fluid">
     <h1>Create Checking Account</h1>
     <form method="POST" onsubmit="return validate(this)">
-        <div class="mb-3">
-            <label class="form-label" for="account_type">Account Type</label>
-            <select class="form-control" id="account_type" name="account_type">
-                <option value="checking">Checking</option>
-                <option value="savings">Savings</option>
-            </select>
-        </div>
         <div class="mb-3"> 
             <label class="form-label" for="deposit">Deposit</label>
             <div class="input group">
@@ -175,6 +155,14 @@ if(isset($_POST["save"])){
             <small id="depositHelp" class="form-text text-muted">Minimum $5.00 deposit required</small>
         </div>
         <button type="submit" name="save" value="create" class="btn btn-primary">Create</button>
+        <div class="mb-3">
+            <div class="list-group">
+                <div>
+                    <a href="createSavingsAccount.php">Create Savings Account</a>
+                    <a href="#">Create Loan</a>
+                </div>
+            </div>
+        </div>
     </form>
 </div>
 
