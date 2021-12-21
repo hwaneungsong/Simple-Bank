@@ -159,7 +159,7 @@ if(isset($_POST["save"])){
             <div class="list-group">
                 <div>
                     <a href="createSavingsAccount.php">Create Savings Account</a>
-                    <a href="#">Create Loan</a>
+                    <a href="createLoanAccount.php">Create Loan</a>
                 </div>
             </div>
         </div>
