@@ -1,9 +1,10 @@
 # Project Name: Simple Bank
 ## Project Summary: This project will create a bank simulation for users. They’ll be able to have various accounts, do standard bank functions like deposit, withdraw, internal (user’s accounts)/external(other user’s accounts) transfers, and creating/closing accounts.
-## Github Link: (Prod Branch of Project Folder)
-## Project Board Link: 
-## Website Link: (Heroku Prod of Project folder)
-## Your Name:
+## Github Link: (Prod Branch of Project Folder) https://github.com/hwaneungsong/IT202-011/tree/dev/public_html
+## Project Board Link: https://github.com/users/hwaneungsong/projects/1
+## Website Link: (Heroku Prod of Project folder)(https://hs723-prod.herokuapp.com/Project/home.php)
+## Your Name: Hwan Eung Song
+## Project Demo: https://youtu.be/PD1v9Uq5Oms
 
 <!--
 ### Line item / Feature template (use this for each bullet point)
