@@ -51,6 +51,7 @@ require_once(__DIR__ . "/../lib/functions.php");
                             <li><a class="dropdown-item" href="<?php echo get_url('createExternalTransfer.php'); ?>">External Transfer</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo get_url('closeAccount.php'); ?>">Close Account</a></li>
                 <?php endif; ?>
                 <?php if (!is_logged_in()) : ?>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('login.php'); ?>">Login</a></li>
@@ -65,6 +66,8 @@ require_once(__DIR__ . "/../lib/functions.php");
                             <li><a class="dropdown-item" href="<?php echo get_url('admin/create_role.php'); ?>">Create Role</a></li>
                             <li><a class="dropdown-item" href="<?php echo get_url('admin/list_roles.php'); ?>">List Roles</a></li>
                             <li><a class="dropdown-item" href="<?php echo get_url('admin/assign_roles.php'); ?>">Assign Roles</a></li>
+                            <li><a class="dropdown-item" href="<?php echo get_url('admin/search_users.php'); ?>">Search Users</a></li>
+                            <li><a class="dropdown-item" href="<?php echo get_url('admin/lookup_accounts.php'); ?>">Search Accounts</a></li>
                         </ul>
                     </li>        
                 <?php endif; ?>
