@@ -1,0 +1,1 @@
+ALTER TABLE Transactions ADD COLUMN expected_total decimal(12, 2);
